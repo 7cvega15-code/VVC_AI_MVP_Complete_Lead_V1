@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a Python MVP for an AI-assisted event intelligence and recommendation engine for VVC Photobooths.
+This project is a Python MVP for an AI-assisted event intelligence and recommendation engine for event services and photobooth booking workflows.
 
 It demonstrates how to convert freeform customer inquiries into structured event data, score lead value, recommend packages and add-ons from config-driven business rules, and support human review with proposal and response generation.
 
@@ -88,7 +88,7 @@ Current tests cover missing-info detection, workflow routing, workflow execution
 
 - The project expects an `OPENAI_API_KEY` environment variable to be available.
 - Keep `.env` and `venv/` out of version control.
-- This is an MVP intended to show how AI extraction and deterministic business rules can work together in a photobooth lead workflow.
+- This is an MVP intended to show how AI extraction and deterministic business rules can work together in an event lead workflow.
 
 ## Future enhancements
 

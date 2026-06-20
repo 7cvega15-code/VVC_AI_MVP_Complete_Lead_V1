@@ -41,7 +41,7 @@
           "additional_hour_rate": 150
         },
         {
-          "tier_name": "Grand",
+          "tier_name": "Glamour",
           "base_price": 1350,
           "included_hours": 4,
           "additional_hour_rate": 150
@@ -65,7 +65,7 @@
           "additional_hour_rate": 175
         },
         {
-          "tier_name": "Grand",
+          "tier_name": "Glamour",
           "base_price": 1100,
           "included_hours": 4,
           "additional_hour_rate": 175

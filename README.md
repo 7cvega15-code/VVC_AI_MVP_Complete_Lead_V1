@@ -10,6 +10,11 @@ It demonstrates how to convert freeform customer inquiries into structured event
 
 MVP / proof of concept. The current version demonstrates core lead interpretation, scoring, recommendation, and workflow-routing logic. It is not intended as a production booking system yet.
 
+## Version notes
+
+- V1.0: Initial MVP demonstrating lead extraction, scoring, recommendation, workflow routing, proposal generation, and response support.
+- V1.1: Hardened LLM JSON parsing, corrected package tier logic to use Classic / Signature / Glamour, removed incorrect Grand tier logic, and expanded deterministic pytest coverage.
+
 ## What it demonstrates
 
 - AI-assisted event inquiry interpretation using OpenAI

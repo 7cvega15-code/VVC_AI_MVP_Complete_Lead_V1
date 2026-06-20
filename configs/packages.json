@@ -1,0 +1,81 @@
+{
+  "packages": [
+    {
+      "product_family": "The Spark",
+      "description": "Digital selfie booth experience.",
+      "tiers": [
+        {
+          "tier_name": "Classic",
+          "base_price": 450,
+          "included_hours": 2,
+          "additional_hour_rate": 125
+        },
+        {
+          "tier_name": "Signature",
+          "base_price": 700,
+          "included_hours": 4,
+          "additional_hour_rate": 125
+        },
+        {
+          "tier_name": "Glamour",
+          "base_price": 1100,
+          "included_hours": 5,
+          "additional_hour_rate": 125
+        }
+      ]
+    },
+    {
+      "product_family": "The Luxe",
+      "description": "DSLR photo booth with prints.",
+      "tiers": [
+        {
+          "tier_name": "Classic",
+          "base_price": 700,
+          "included_hours": 2,
+          "additional_hour_rate": 150
+        },
+        {
+          "tier_name": "Signature",
+          "base_price": 950,
+          "included_hours": 3,
+          "additional_hour_rate": 150
+        },
+        {
+          "tier_name": "Grand",
+          "base_price": 1350,
+          "included_hours": 4,
+          "additional_hour_rate": 150
+        }
+      ]
+    },
+    {
+      "product_family": "The Orbit",
+      "description": "360 video booth experience.",
+      "tiers": [
+        {
+          "tier_name": "Classic",
+          "base_price": 750,
+          "included_hours": 2,
+          "additional_hour_rate": 175
+        },
+        {
+          "tier_name": "Signature",
+          "base_price": 925,
+          "included_hours": 3,
+          "additional_hour_rate": 175
+        },
+        {
+          "tier_name": "Grand",
+          "base_price": 1100,
+          "included_hours": 4,
+          "additional_hour_rate": 175
+        }
+      ]
+    },
+    {
+      "product_family": "The Virtual",
+      "description": "Virtual photo booth experience for remote or hybrid events.",
+      "tiers": []
+    }
+  ]
+}

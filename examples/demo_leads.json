@@ -1,0 +1,23 @@
+[
+  {
+    "id": "incomplete_wedding_lead",
+    "scenario": "Wedding inquiry with missing logistics",
+    "purpose": "Demonstrate follow-up questions for missing event details",
+    "inquiry_text": "We are planning a wedding in Pasadena for about 200 guests and are interested in a modern photo experience with prints.",
+    "expected_behavior": "follow-up only; ask for start time, duration, and venue"
+  },
+  {
+    "id": "complete_sweet_16_lead",
+    "scenario": "Complete Sweet 16 request",
+    "purpose": "Demonstrate full package and add-on recommendation",
+    "inquiry_text": "I am planning a Sweet 16 party in Long Beach for 120 guests on June 15. The event starts at 7 PM, lasts 4 hours, and will be held at a banquet hall. We definitely want printed photos and a premium experience.",
+    "expected_behavior": "full proposal; recommend packages, add-ons, and premium enhancements"
+  },
+  {
+    "id": "corporate_brand_activation",
+    "scenario": "Corporate brand activation event",
+    "purpose": "Demonstrate business-focused recommendations and upsell logic",
+    "inquiry_text": "We need a photobooth for a corporate holiday party in downtown LA with about 150 guests. We want branded digital sharing, custom overlays, and a fun analytics or survey option.",
+    "expected_behavior": "preliminary or full proposal; recommend business/branding add-ons and digital sharing enhancements"
+  }
+]

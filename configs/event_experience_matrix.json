@@ -1,0 +1,148 @@
+{
+  "wedding": {
+    "entry_experience": "Spark + Prints",
+    "recommended_experience": "Luxe",
+    "premium_experiences": [
+      "Luxe + Orbit"
+    ],
+    "recommended_addons": [
+      "Guest Book",
+      "Custom Magnets",
+      "Premium Backdrop",
+      "Lenticular Prints"
+    ]
+  },
+
+  "corporate": {
+    "entry_experience": "Spark + Branding",
+    "recommended_experience": "Luxe",
+    "premium_experiences": [
+      "Orbit + Luxe"
+    ],
+    "additional_experiences": [
+      "Spark Sharing Station"
+    ],
+    "recommended_addons": [
+      "Survey/Data Capture",
+      "Analytics Report",
+      "Custom Magnets",
+      "Acrylic Keychains",
+      "Custom Branding"
+    ]
+  },
+
+  "sweet 16": {
+    "entry_experience": "Spark + Prints",
+    "recommended_experience": "Luxe",
+    "premium_experiences": [
+      "Luxe + Orbit"
+    ],
+    "recommended_addons": [
+      "Custom Magnets",
+      "Lenticular Prints",
+      "Acrylic Keychains",
+      "Digital Props"
+    ]
+  },
+
+  "quinceañera": {
+    "entry_experience": "Spark + Prints",
+    "recommended_experience": "Luxe",
+    "premium_experiences": [
+      "Luxe + Orbit"
+    ],
+    "recommended_addons": [
+      "Prints",
+      "Guest Book",
+      "Acrylic Keychains",
+      "Custom Magnets"
+    ]
+  },
+
+  "graduation": {
+    "entry_experience": "Spark",
+    "recommended_experience": "Spark + Prints",
+    "premium_experiences": [
+      "Luxe"
+    ],
+    "recommended_addons": [
+      "Magnetic Sleeves",
+      "Acrylic Keychains",
+      "Acrylic Magnets",
+      "Custom Magnets"
+    ]
+  },
+
+  "school event": {
+    "entry_experience": "Spark",
+    "recommended_experience": "Spark + Prints",
+    "premium_experiences": [
+      "Luxe"
+    ],
+    "recommended_addons": [
+      "Prints",
+      "Magnetic Sleeves",
+      "Acrylic Keychains",
+      "Acrylic Magnets"
+    ]
+  },
+
+  "fundraiser": {
+    "entry_experience": "Spark",
+    "recommended_experience": "Spark + Prints",
+    "premium_experiences": [
+      "Luxe"
+    ],
+    "recommended_addons": [
+      "Prints",
+      "Magnetic Sleeves",
+      "Acrylic Magnets",
+      "Survey/Data Capture"
+    ]
+  },
+
+  "birthday": {
+    "entry_experience": "Spark",
+    "recommended_experience": "Spark + Prints",
+    "premium_experiences": [
+      "Luxe"
+    ],
+    "recommended_addons": [
+      "Prints",
+      "Magnetic Sleeves",
+      "Acrylic Keychains",
+      "Acrylic Magnets",
+      "Custom Magnets"
+    ]
+  },
+
+  "holiday party": {
+    "entry_experience": "Spark + Prints",
+    "recommended_experience": "Luxe",
+    "premium_experiences": [
+      "Orbit + Luxe"
+    ],
+    "recommended_addons": [
+      "Prints",
+      "Magnetic Sleeves",
+      "Acrylic Keychains",
+      "Acrylic Magnets",
+      "Custom Magnets"
+    ]
+  },
+
+  "special occasion": {
+    "entry_experience": "Spark + Prints",
+    "recommended_experience": "Luxe",
+    "premium_experiences": [
+      "Luxe + Orbit"
+    ],
+    "recommended_addons": [
+      "Prints",
+      "Magnetic Sleeves",
+      "Acrylic Keychains",
+      "Acrylic Magnets",
+      "Custom Magnets"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "outdoor": [
+    "Jackery Power Station"
+  ],
+
+  "night_event": [
+    "Supplemental Lighting"
+  ],
+
+  "guest_count_150_plus": [
+    "Additional Attendant Recommended"
+  ],
+
+  "guest_count_200_plus": [
+    "Additional Attendant Required"
+  ],
+
+  "wedding": [
+    "Guest Book Station",
+    "Review Setup Timeline"
+  ],
+
+  "corporate": [
+    "Survey/Data Capture Setup",
+    "Analytics Reporting Configuration",
+    "Review Setup Timeline"
+  ],
+
+  "school event": [
+    "Review Power Availability",
+    "Review Outdoor Setup Requirements"
+  ]
+}

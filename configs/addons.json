@@ -1,0 +1,30 @@
+{
+  "addons": {
+    "wedding": [
+      "Custom Magnets",
+      "Lenticular Prints",
+      "Acrylic Keychains",
+      "Guest Book",
+      "Floral Wall"
+    ],
+    "graduation": [
+      "Custom Magnets",
+      "Acrylic Keychains",
+      "Magnetic Sleeves"
+    ],
+    "sweet 16": [
+      "Custom Magnets",
+      "Lenticular Prints",
+      "Acrylic Keychains",
+      "Digital Props"
+    ],
+    "corporate": [
+      "Additional Branding",
+      "Custom Event Hashtag"
+    ],
+    "school": [
+      "Magnetic Sleeve",
+      "Digital Props"
+    ]
+  }
+}

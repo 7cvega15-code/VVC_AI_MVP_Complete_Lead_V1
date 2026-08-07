@@ -1,46 +1,90 @@
-# VVC_AI_MVP_Complete_Lead_V1
+# VVC AI Lead Workflow MVP
 
-## Overview
+A Python proof of concept for an AI-assisted event lead workflow. The project converts a freeform customer inquiry into structured event data, evaluates lead completeness and confidence, applies configurable business rules, recommends packages and add-ons, routes the workflow, and generates proposal and response drafts for human review.
 
-This project is a Python MVP for an AI-assisted event intelligence and recommendation engine for event services and photobooth booking workflows.
+> **Current status:** MVP / proof of concept. This repository demonstrates the workflow and governance pattern; it is not an autonomous production booking system.
 
-It demonstrates how to convert freeform customer inquiries into structured event data, score lead value, recommend packages and add-ons from config-driven business rules, and support human review with proposal and response generation.
+## Business problem
 
-## Status
+Small event-service businesses spend significant time interpreting inquiries, identifying missing information, matching customers to packages, assembling proposals, and drafting responses. This MVP explores how AI-based extraction can reduce that manual work while keeping consequential business logic explicit and reviewable.
 
-MVP / proof of concept. The current version demonstrates core lead interpretation, scoring, recommendation, and workflow-routing logic. It is not intended as a production booking system yet.
+## What this demonstrates
 
-## Version notes
+- OpenAI-based extraction of structured event details from freeform inquiries
+- Separation of model inference from deterministic Python business logic
+- Lead completeness and confidence signals
+- Config-driven package, add-on, experience, and operational recommendations
+- Workflow routing for full proposal, preliminary proposal, or follow-up-only paths
+- Proposal and client-response draft generation
+- Deterministic pytest coverage for core business logic
+- Human review before client-facing use
 
-- V1.0: Initial MVP demonstrating lead extraction, scoring, recommendation, workflow routing, proposal generation, and response support.
-- V1.1: Hardened LLM JSON parsing, corrected package tier logic to use Classic / Signature / Glamour, removed incorrect Grand tier logic, and expanded deterministic pytest coverage.
+## Current architecture
 
-## What it demonstrates
+```text
+Customer inquiry
+      ↓
+OpenAI extraction
+      ↓
+Structured event data
+      ↓
+Missing-info check ─────→ Follow-up questions
+      ↓
+Lead status + confidence signal
+      ↓
+Scoring + deterministic/config-driven recommendations
+      ↓
+Package / add-on / experience / operational recommendations
+      ↓
+Workflow routing by lead completeness
+      ↓
+Proposal + client-response draft
+      ↓
+Human review before use
+```
 
-- AI-assisted event inquiry interpretation using OpenAI
-- Config-driven package, add-on, and experience recommendation logic
-- Lead scoring and workflow routing based on event attributes
-- Separation of LLM extraction from deterministic business rules
-- Human-in-the-loop proposal and client response support
+### Important implementation boundary
 
-## Architecture
+The current MVP **calculates confidence**, but the workflow router does not yet use that score as an automated review gate. Routing is driven by lead completeness/status:
 
-- `app.py`: demo entry point that runs the pipeline on a sample inquiry
-- `src/extraction/inquiry_extractor.py`: LLM-based extraction of event details
-- `src/scoring/scoring_engine.py`: scoring logic for lead and package recommendation
-- `src/recommendations/`: package, add-on, experience, and operational recommendation modules
-- `src/workflows/`: workflow routing, missing-info checks, proposal building, and response generation
-- `configs/`: JSON-driven business rules, packages, and add-on metadata
-- `tests/test_core_logic.py`: deterministic tests for scoring, routing, recommendations, and missing-info checks
-- `examples/demo_leads.json`: fictional sample leads for different workflow demos
+- `COMPLETE` → `FULL_PROPOSAL`
+- `PARTIAL` → `PRELIMINARY_PROPOSAL`
+- otherwise → `FOLLOWUP_ONLY`
+
+Confidence is currently a diagnostic signal. A future enhancement is to make confidence thresholds an explicit automated route to human review.
+
+## Repository structure
+
+- `app.py` — end-to-end demo entry point
+- `src/extraction/inquiry_extractor.py` — OpenAI-based inquiry extraction
+- `src/scoring/scoring_engine.py` — lead scoring
+- `src/recommendations/` — package, add-on, experience, and operational recommendation logic
+- `src/workflows/confidence_engine.py` — confidence calculation
+- `src/workflows/missing_info_checker.py` — required-field checks
+- `src/workflows/lead_status.py` — completeness/status classification
+- `src/workflows/workflow_router.py` — workflow selection
+- `src/workflows/workflow_executor.py` — action mapping
+- `src/workflows/proposal_builder.py` — proposal construction
+- `src/workflows/response_generator_v2.py` — response draft generation
+- `configs/` — configurable packages, business rules, add-ons, and experience metadata
+- `tests/test_core_logic.py` — deterministic tests for core logic
+- `examples/demo_leads.json` — fictional lead scenarios
+
+## Design principles
+
+1. **Use the model where language understanding helps.** Inquiry extraction is the AI-dependent step.
+2. **Keep business decisions inspectable.** Package and workflow logic live in Python/configuration rather than opaque model output alone.
+3. **Surface uncertainty.** Missing information and confidence are calculated explicitly.
+4. **Generate drafts, not autonomous sends.** Client-facing output is intended for review before use.
+5. **Test deterministic logic separately from the model.** Core routing and recommendation behavior can be regression-tested without an API call.
 
 ## Demo lead examples
 
-The file `examples/demo_leads.json` contains fictional sample leads used to demonstrate different workflow paths:
+`examples/demo_leads.json` contains fictional examples for different workflow paths:
 
-- `incomplete_wedding_lead` → follow-up questions
-- `complete_sweet_16_lead` → full package and add-on recommendation
-- `corporate_brand_activation` → business-focused recommendation and upsell logic
+- incomplete wedding inquiry → follow-up path
+- complete Sweet 16 inquiry → recommendation/proposal path
+- corporate brand activation → business-oriented recommendation path
 
 ## Local setup
 
@@ -48,23 +92,18 @@ The file `examples/demo_leads.json` contains fictional sample leads used to demo
 
 ```powershell
 python -m venv venv
-```
-
-2. Activate the environment:
-
-```powershell
 venv\Scripts\activate
 ```
 
-3. Install runtime dependencies:
+2. Install runtime dependencies:
 
 ```powershell
 pip install -r requirements.txt
 ```
 
-4. Add your OpenAI API key to a `.env` file in the project root.
+3. Add your OpenAI API key to a local `.env` file or environment variable. Never commit the key.
 
-5. Run the demo:
+4. Run the demo:
 
 ```powershell
 python app.py
@@ -72,33 +111,39 @@ python app.py
 
 ## Testing
 
-Core deterministic business logic can be tested without calling OpenAI.
-Dev dependencies are listed in `requirements-dev.txt`.
-
-Install dev dependencies:
+Install development dependencies:
 
 ```powershell
 pip install -r requirements-dev.txt
 ```
 
-Run tests:
+Run the deterministic test suite:
 
 ```powershell
 python -m pytest tests/test_core_logic.py
 ```
 
-Current tests cover missing-info detection, workflow routing, workflow execution, scoring, package recommendation, and add-on recommendation.
+The tests cover missing-information detection, workflow routing/execution, scoring, package recommendations, and add-on recommendations.
 
-## Notes
+## Technology positioning
 
-- The project expects an `OPENAI_API_KEY` environment variable to be available.
-- Keep `.env` and `venv/` out of version control.
-- This is an MVP intended to show how AI extraction and deterministic business rules can work together in an event lead workflow.
+- **Runtime integration:** OpenAI API for inquiry extraction
+- **Language / logic:** Python
+- **Version control:** Git / GitHub
+- **Development and evaluation aids:** ChatGPT, Claude, Cursor, GitHub Copilot, Visual Studio Code
+
+Claude is not part of the current runtime path shown in this repository; it has been used as a development/evaluation aid.
 
 ## Future enhancements
 
-- Load demo leads from `examples/demo_leads.json` instead of a hardcoded sample inquiry
-- Add mocked tests for OpenAI-based extraction
-- Add HoneyBook workflow integration
-- Add structured proposal output for CRM/email workflows
-- Add governance rules for human review before client-facing responses are sent
+- Use confidence thresholds as an explicit automated human-review routing gate
+- Load demo scenarios directly from `examples/demo_leads.json`
+- Add mocked tests for the OpenAI extraction layer
+- Add structured CRM/email outputs
+- Add HoneyBook integration
+- Add feedback capture from human review decisions
+- Expand governance and audit logging for client-facing workflows
+
+## Portfolio note
+
+This is a hands-on applied AI project built for VVC Photobooth Ventures. The repository is intended to demonstrate practical workflow design, AI/data separation, business-rule governance, testing, and human-in-the-loop thinking without overstating the maturity of the current MVP.

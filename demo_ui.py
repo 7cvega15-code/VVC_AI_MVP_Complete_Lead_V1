@@ -1,4 +1,5 @@
 from pathlib import Path
+import html
 import streamlit as st
 
 from src.extraction.inquiry_extractor import extract_event_info
@@ -52,6 +53,10 @@ h1,h2,h3,h4 {letter-spacing:-.02em;color:var(--ink);}
 .missing-note {border:1px solid var(--lav);background:var(--lav);border-radius:9px;padding:10px 12px;color:var(--body);font-size:.84rem;margin-top:10px;}
 .route {background:var(--lav);color:var(--accent);border-radius:8px;padding:8px 10px;font-weight:800;}
 .footer {text-align:center;color:var(--quiet);font-size:.75rem;margin-top:1.2rem;}
+.output-card {border:1px solid var(--lav);background:var(--lav);border-radius:14px;padding:16px 18px;min-height:330px;height:100%;display:flex;flex-direction:column;}
+.output-card-title {font-size:1rem;font-weight:800;color:var(--ink);margin-bottom:4px;}
+.output-card-sub {font-size:.78rem;color:var(--quiet);margin-bottom:12px;min-height:18px;}
+.output-card-body {background:var(--white);border:1px solid var(--white);border-radius:10px;padding:15px 16px;color:var(--body);font-size:.9rem;line-height:1.5;white-space:pre-wrap;flex:1;}
 div.stButton > button[kind="primary"] {background:var(--accent);border:0;border-radius:10px;font-weight:750;color:var(--white);}
 div.stButton > button[kind="primary"]:hover {background:var(--ink);color:var(--white);}
 [data-testid="stMetric"] {border:1px solid var(--lav);border-radius:16px;padding:14px 16px;background:var(--white);min-height:125px;}
@@ -154,14 +159,13 @@ if st.button("✦  Analyze Lead", type="primary", use_container_width=True):
     else:
         followup_text = "All required details are present. The recommendation is ready for human review."
 
+    safe_followup = html.escape(followup_text)
+    safe_response = html.escape(str(client_response))
     f1,f2 = st.columns(2)
     with f1:
-        st.markdown('<div class="section-title" style="font-size:1rem">Review-ready follow-up</div>', unsafe_allow_html=True)
-        st.text_area("Questions to send", value=followup_text, height=250, disabled=True, label_visibility="collapsed")
+        st.markdown(f'<div class="output-card"><div class="output-card-title">Review-ready follow-up</div><div class="output-card-sub">Questions generated from missing required information.</div><div class="output-card-body">{safe_followup}</div></div>', unsafe_allow_html=True)
     with f2:
-        st.markdown('<div class="section-title" style="font-size:1rem">Client response draft</div>', unsafe_allow_html=True)
-        st.caption("Human review required before sending.")
-        st.text_area("Client response", value=client_response, height=225, disabled=True, label_visibility="collapsed")
+        st.markdown(f'<div class="output-card"><div class="output-card-title">Client response draft</div><div class="output-card-sub">Human review required before sending.</div><div class="output-card-body">{safe_response}</div></div>', unsafe_allow_html=True)
 
     with st.expander("View AI extraction (structured data)"):
         st.json(event_data)

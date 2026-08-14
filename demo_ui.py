@@ -155,7 +155,7 @@ if st.button("✦  Analyze Lead", type="primary", use_container_width=True):
     }
     questions = [question_map.get(x, f"Please confirm: {x}") for x in missing_info]
     if questions:
-        followup_text = "Hi,\n\nThank you for your interest in VVC Photobooths!\n\nTo help us recommend the best package and provide an accurate quote, could you please share:\n\n" + "\n".join(f"{i}. {q}" for i,q in enumerate(questions,1)) + "\n\nOnce we have these details, we'll send over the best recommendation and pricing for your event.\n\nThanks so much!\n— Christina | VVC Photobooths"
+        followup_text = "Hi,\n\nThank you for your interest in VVC Photobooths!\n\nTo help us recommend the best package and provide an accurate quote, could you please share:\n\n" + "\n".join(f"{i}. {q}" for i,q in enumerate(questions,1)) + "\n\nOnce we have these details, we'll send over the best recommendation and pricing for your event.\n\nThanks so much!\n— VVC Photobooths"
     else:
         followup_text = "All required details are present. The recommendation is ready for human review."
 

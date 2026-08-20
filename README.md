@@ -6,7 +6,7 @@ A Python proof of concept for an AI-assisted event lead workflow. The project co
 
 ## Business problem
 
-Small event-service businesses spend significant time interpreting inquiries, identifying missing information, matching customers to packages, assembling proposals, and drafting responses. This MVP explores how AI-based extraction can reduce that manual work while keeping consequential business logic explicit and reviewable.
+Small event-service businesses spend significant time interpreting inquiries, identifying missing information, matching customers to packages, assembling proposals, and drafting responses. This MVP explores how AI-based extraction can reduce that manual work while keeping key business logic explicit and reviewable.
 
 ## What this demonstrates
 
@@ -55,20 +55,20 @@ Confidence is currently a diagnostic signal. A future enhancement is to make con
 
 ## Repository structure
 
-- `app.py` — end-to-end demo entry point
-- `src/extraction/inquiry_extractor.py` — OpenAI-based inquiry extraction
-- `src/scoring/scoring_engine.py` — lead scoring
-- `src/recommendations/` — package, add-on, experience, and operational recommendation logic
-- `src/workflows/confidence_engine.py` — confidence calculation
-- `src/workflows/missing_info_checker.py` — required-field checks
-- `src/workflows/lead_status.py` — completeness/status classification
-- `src/workflows/workflow_router.py` — workflow selection
-- `src/workflows/workflow_executor.py` — action mapping
-- `src/workflows/proposal_builder.py` — proposal construction
-- `src/workflows/response_generator_v2.py` — response draft generation
-- `configs/` — configurable packages, business rules, add-ons, and experience metadata
-- `tests/test_core_logic.py` — deterministic tests for core logic
-- `examples/demo_leads.json` — fictional lead scenarios
+- `app.py`: end-to-end demo entry point
+- `src/extraction/inquiry_extractor.py`: OpenAI-based inquiry extraction
+- `src/scoring/scoring_engine.py`: lead scoring
+- `src/recommendations/`: package, add-on, experience, and operational recommendation logic
+- `src/workflows/confidence_engine.py`: confidence calculation
+- `src/workflows/missing_info_checker.py`: required-field checks
+- `src/workflows/lead_status.py`: completeness/status classification
+- `src/workflows/workflow_router.py`: workflow selection
+- `src/workflows/workflow_executor.py`: action mapping
+- `src/workflows/proposal_builder.py`: proposal construction
+- `src/workflows/response_generator_v2.py`: response draft generation
+- `configs/`: configurable packages, business rules, add-ons, and experience metadata
+- `tests/test_core_logic.py`: deterministic tests for core logic
+- `examples/demo_leads.json`: fictional lead scenarios
 
 ## Design principles
 

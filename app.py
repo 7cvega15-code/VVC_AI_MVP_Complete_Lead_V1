@@ -1,64 +1,25 @@
-from src.extraction.inquiry_extractor import extract_event_info
-from src.scoring.scoring_engine import score_event
-from src.recommendations.package_recommender import recommend_package
-from src.recommendations.addon_recommender import recommend_addons
-from src.workflows.proposal_builder import build_proposal
-from src.workflows.missing_info_checker import check_missing_info
-from src.workflows.followup_generator import generate_followup_questions
-from src.workflows.lead_status import determine_lead_status
-from src.workflows.workflow_router import route_workflow
-from src.workflows.workflow_executor import execute_workflow
-from src.workflows.response_generator_v2 import generate_client_response
-from src.workflows.confidence_engine import calculate_confidence
-from src.recommendations.experience_recommender import recommend_experience
-from src.recommendations.operational_recommender import recommend_operations
+from src.workflows.inquiry_pipeline import process_inquiry
 
 
 sample_inquiry = """
 We are planning an outdoor school dance in Torrance for about 180 students. 
 The event will be in the evening and we would like printed photos."""
 
-event_data = extract_event_info(sample_inquiry)
-missing_info = check_missing_info(event_data)
-confidence = calculate_confidence(
-    event_data,
-    missing_info
-)
-followup = generate_followup_questions(missing_info)
-lead_status = determine_lead_status(missing_info)
-workflow = route_workflow(lead_status)
-action = execute_workflow(workflow)
-score = score_event(event_data)
-
-recommendation = recommend_package(event_data, score)
-experience = recommend_experience(event_data)
-operations = recommend_operations(event_data)
-addons = recommend_addons(event_data)
-
-matrix_addons = experience["recommended_addons"]
-
-final_addons = []
-
-for addon in matrix_addons + addons:
-    if addon not in final_addons:
-        final_addons.append(addon)
-
-
-proposal = build_proposal(
-    event_data,
-    experience,
-    recommendation,
-    final_addons
-)
-
-client_response = generate_client_response(
-    event_data,
-    recommendation,
-    final_addons,
-    missing_info,
-    lead_status,
-    action
-)
+result = process_inquiry(sample_inquiry)
+event_data = result["event_data"]
+missing_info = result["missing_info"]
+confidence = result["confidence"]
+followup = result["followup_questions"]
+lead_status = result["lead_status"]
+workflow = result["workflow"]
+action = result["action"]
+score = result["score"]
+recommendation = result["package_recommendation"]
+experience = result["experience_recommendation"]
+operations = result["operational_recommendations"]
+final_addons = result["addons"]
+proposal = result["proposal"]
+client_response = result["client_response"]
 
 recommended = recommendation["recommended"]
 alternative = recommendation["alternative"]
@@ -125,11 +86,6 @@ for item in operations:
 print("\nFINAL ADD-ONS:")
 
 for addon in final_addons:
-    print(f"- {addon}")
-
-print("\nRECOMMENDED ADD-ONS:")
-
-for addon in addons:
     print(f"- {addon}")
 
 print("\n")

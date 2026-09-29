@@ -43,6 +43,8 @@ Proposal + client-response draft
 Human review before use
 ```
 
+The core workflow is now exposed through `process_inquiry()` in `src/workflows/inquiry_pipeline.py`, allowing future API endpoints, webhook simulators, approval workflows, or dashboards to reuse the same extraction, scoring, routing, recommendation, proposal, and response-generation logic.
+
 ### Important implementation boundary
 
 The current MVP **calculates confidence**, but the workflow router does not yet use that score as an automated review gate. Routing is driven by lead completeness/status:

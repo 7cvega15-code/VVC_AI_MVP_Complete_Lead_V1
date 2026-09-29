@@ -43,6 +43,8 @@ Proposal + client-response draft
 Human review before use
 ```
 
+The core workflow is now exposed through `process_inquiry()` in `src/workflows/inquiry_pipeline.py`, allowing future API endpoints, webhook simulators, approval workflows, or dashboards to reuse the same extraction, scoring, routing, recommendation, proposal, and response-generation logic.
+
 ### Important implementation boundary
 
 The current MVP **calculates confidence**, but the workflow router does not yet use that score as an automated review gate. Routing is driven by lead completeness/status:
@@ -52,6 +54,19 @@ The current MVP **calculates confidence**, but the workflow router does not yet 
 - otherwise → `FOLLOWUP_ONLY`
 
 Confidence is currently a diagnostic signal. A future enhancement is to make confidence thresholds an explicit automated route to human review.
+
+## Human review and audit logging
+
+`POST /process-inquiry` creates and saves a review draft with status `pending`. The generated proposal and `client_response` remain drafts and are not sent to customers. `GET /review-items` retrieves saved drafts and can filter by status.
+
+Use `POST /review-items/{review_id}/approve` to mark a draft approved or `POST /review-items/{review_id}/reject` to mark it rejected. Both decisions record the reviewer, `decision_notes`, `reviewed_at`, and an audit event. A review item can only be decided once.
+
+Review items are stored locally in `data/review_queue.json`, which is ignored by Git. This is an MVP JSON store only: there is no database or authentication, and no HoneyBook integration or customer sending.
+
+## Validation
+
+- `python -m pytest` passed with 24 tests.
+- Swagger UI was used to validate inquiry processing, review retrieval, approval, audit logging, and duplicate-decision protection.
 
 ## Repository structure
 

@@ -1,7 +1,9 @@
 import pytest
+import importlib
 
 from src.recommendations.package_recommender import recommend_package
 from src.recommendations.addon_recommender import recommend_addons
+from src.extraction import inquiry_extractor
 from src.extraction.inquiry_extractor import _parse_ai_json
 
 
@@ -46,3 +48,23 @@ def test_parse_ai_json_raises_on_malformed():
     malformed = "{not: valid json]"
     with pytest.raises(ValueError):
         _parse_ai_json(malformed)
+
+
+def test_pipeline_import_does_not_create_openai_client(monkeypatch):
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.setattr(inquiry_extractor, "load_dotenv", lambda: None)
+
+    def unexpected_client_creation(*args, **kwargs):
+        raise AssertionError("OpenAI client should not be created during import")
+
+    monkeypatch.setattr(inquiry_extractor, "OpenAI", unexpected_client_creation)
+    importlib.reload(inquiry_extractor)
+    importlib.import_module("src.workflows.inquiry_pipeline")
+
+
+def test_extract_event_info_requires_api_key(monkeypatch):
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.setattr(inquiry_extractor, "load_dotenv", lambda: None)
+
+    with pytest.raises(RuntimeError, match="OPENAI_API_KEY is not set"):
+        inquiry_extractor.extract_event_info("A school dance inquiry")

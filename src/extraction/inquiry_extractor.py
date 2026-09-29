@@ -3,9 +3,16 @@ from dotenv import load_dotenv
 import os
 import json
 
-load_dotenv()
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+def _create_openai_client():
+    load_dotenv()
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise RuntimeError(
+            "OPENAI_API_KEY is not set. Add it to your environment or local .env "
+            "file before processing a real inquiry."
+        )
+    return OpenAI(api_key=api_key)
 
 
 def _parse_ai_json(raw_text: str):
@@ -22,6 +29,7 @@ def _parse_ai_json(raw_text: str):
 
 
 def extract_event_info(inquiry_text):
+    client = _create_openai_client()
     prompt = f"""
 Extract the event information from this inquiry.
 

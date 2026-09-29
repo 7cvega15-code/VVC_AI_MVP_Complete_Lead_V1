@@ -12,6 +12,7 @@ __pycache__/
 
 # Logs and runtime files
 logs/
+data/review_queue.json
 
 # Test cache
 .pytest_cache/

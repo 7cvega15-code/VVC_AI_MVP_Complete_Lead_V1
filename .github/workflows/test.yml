@@ -1,4 +1,4 @@
-name: Core logic tests
+name: Full test suite
 
 on:
   push:
@@ -22,5 +22,5 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install -r requirements-dev.txt
-      - name: Run deterministic core tests
-        run: python -m pytest tests/test_core_logic.py
+      - name: Run full test suite
+        run: python -m pytest

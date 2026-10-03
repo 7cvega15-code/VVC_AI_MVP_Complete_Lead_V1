@@ -65,11 +65,13 @@ Review items are stored locally in `data/review_queue.json`, which is ignored by
 
 ## Validation
 
-- `python -m pytest` passed with 24 tests.
+- GitHub Actions passed all 26 tests on October 2, 2026 (Pacific time), using `python -m pytest`.
+- The full suite runs automatically on every push and pull request without an OpenAI API key or live model calls.
 - Swagger UI was used to validate inquiry processing, review retrieval, approval, audit logging, and duplicate-decision protection.
 
 ## Repository structure
 
+- `api.py`: inquiry processing and human-review API endpoints
 - `app.py`: end-to-end demo entry point
 - `src/extraction/inquiry_extractor.py`: OpenAI-based inquiry extraction
 - `src/scoring/scoring_engine.py`: lead scoring
@@ -81,8 +83,12 @@ Review items are stored locally in `data/review_queue.json`, which is ignored by
 - `src/workflows/workflow_executor.py`: action mapping
 - `src/workflows/proposal_builder.py`: proposal construction
 - `src/workflows/response_generator_v2.py`: response draft generation
+- `src/workflows/inquiry_pipeline.py`: reusable inquiry processing pipeline
+- `src/workflows/review_store.py`: local JSON review storage
 - `configs/`: configurable packages, business rules, add-ons, and experience metadata
-- `tests/test_core_logic.py`: deterministic tests for core logic
+- `tests/test_core_logic.py`: deterministic tests for core logic and the reusable pipeline
+- `tests/test_api.py`: draft creation, retrieval, approval/rejection, audit history, and duplicate-decision protection
+- `tests/test_package_and_extractor.py`: package recommendations, JSON parsing, and API-key/import behavior
 - `examples/demo_leads.json`: fictional lead scenarios
 
 ## Design principles
@@ -132,13 +138,15 @@ Install development dependencies:
 pip install -r requirements-dev.txt
 ```
 
-Run the deterministic test suite:
+Run the full test suite:
 
 ```powershell
-python -m pytest tests/test_core_logic.py
+python -m pytest
 ```
 
-The tests cover missing-information detection, workflow routing/execution, scoring, package recommendations, and add-on recommendations.
+The 26 tests cover missing-information detection, workflow routing/execution, scoring, package and add-on recommendations, the reusable pipeline, API review workflows, audit history, duplicate-decision protection, JSON parsing, and API-key/import behavior. AI-dependent processing is mocked in the pipeline and API tests, so the suite does not make live OpenAI calls.
+
+GitHub Actions runs this same command on every push and pull request.
 
 ## Technology positioning
 
